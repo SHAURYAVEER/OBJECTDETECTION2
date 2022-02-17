@@ -1,5 +1,6 @@
 img1 = "";
 status = "";
+objects = "";
 
 function setup()
 {
@@ -19,45 +20,23 @@ function preload()
 function draw()
 {
     image(img, 0, 0, 640, 420);
-    fill("#FFFF00");
-    text("PINEAPPLE", 135, 101);
-    noFill();
-    stroke("#FFFF00");
-    rect(135, 101, 130, 200);
 
-    fill("#0034FF");
-    text("ORANGE", 250, 245);
-    noFill();
-    stroke("#0034FF");
-    rect(250, 245, 150, 100);
+    if(status!= "")
+    {
+        for(i=0; i<objects.length; i++)
+        {
+            document.getElementById("status").innerHTML = "Status : Object detected";
 
-    fill("#0034FF");
-    text("ORANGE", 250, 245);
-    noFill();
-    stroke("#0034FF");
-    rect(250, 245, 150, 100);
-
-    fill("#FF1F00");
-    text("GREEN APPLE", 250, 150);
-    noFill();
-    stroke("#FF1F00");
-    rect(250, 150, 150, 80);
-    fill("#FF1F00");
-    text("GREEN APPLE", 250, 150);
-    noFill();
-    stroke("#FF1F00");
-    rect(250, 150, 150, 80);
-
-    fill("#000");
-    text("LEMON", 380, 265);
-    noFill();
-    stroke("#000");
-    rect(380, 265, 130, 100);
-    fill("#000");
-    text("LEMON", 380, 265);
-    noFill();
-    stroke("#000");
-    rect(380, 265, 130, 100);
+            fill("#37FF00");
+            percent = floor(objects[i].confidence * 100);
+            text(objects[i].label + "" + percent + "%", objects[i].x+20 , objects[i].y-150);
+            noFill();
+            stroke("#FF0000");
+            rect(objects[i].x+20 , objects[i].y-150 , objects[i].width , objects[i].height);
+        }
+    }
+    
+    
     
 }
 
@@ -69,13 +48,14 @@ function modelLoaded()
     objectDetector.detect(img, gotResult);
 }
 
-function gotResult()
+function gotResult(error , results)
 {
     if(error)
     {
     console.log(error);
-    }else{
+    }
     console.log(results);
+    objects = results ;
     
 }
-  }
+  
