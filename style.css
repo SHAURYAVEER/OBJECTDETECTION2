@@ -1,24 +1,36 @@
-
+body
+{
+    background-size: cover;
+}
 .heading
 {
-font-size: 23px;
-width: 100%;
-margin: 0px;
+    font-size: xx-large;
+    font-weight: bold;
+      width: 100%;
+     margin: 0px;
 }
-
-#status,#number_of_objects
+#start,#noofobj,#status
 {
-font-size: 18px;
+    font-size: large;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+.copyright_footer
+{
+    position: fixed;
+    color: rgb(20, 73, 220);
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(51, 255, 0);
+    line-height: 3;
+    text-align: center;
+    font-weight: 900;
 
 }
+canvas
+{ border: 2px solid white;
+        box-shadow: 5px 5px 5px rgb(81, 255, 0) ;
+        border-radius: 10px;
+        margin-top: 130px;
 
-body{
-    background-size: cover;
-    background-position: center;
-}
-
-canvas{
-    box-shadow: 10px 10px 10px rgb(81, 255, 0) ;
-    border-radius: 10px;
-    margin-top: 30px;
 }

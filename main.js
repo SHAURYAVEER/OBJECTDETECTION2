@@ -1,71 +1,62 @@
-img = "";
-status = "";
-objects = "";
-
-function setup()
-{
-canvas = createCanvas(400, 400);
-canvas.center();
-video = createCapture(VIDEO);
-video.hide();
-
-objectDetector = ml5.objectDetector('cocossd', modelLoaded);
-document.getElementById("status").innerHTML = "Status: Detecting Objects";
-
-
-
-}
+status ="";
+video ="";
+objects=[];
 
 function preload()
 {
-    img = loadImage('dog_cat.jpg');
+    video = createVideo('video.mp4');
+    video.hide();
+}
+function setup()
+{
+    canvas= createCanvas(500,400);
+    canvas.center();
 }
 
 function draw()
 {
-    image(video, 0, 0, 400, 400);
-
-    if(status!= "")
+    image(video, 0, 0, 500, 400);
+    if(status= "")
     {
-        r=random(255);
-        g=random(255);
-        b=random(255);
-        objectDetector.detect(video,gotResult);
-        for(i=0; i<objects.length; i++) {
-            document.getElementById("status").innerHTML = "Status : Object detected";
-            document.getElementById("number_of_objects").innerHTML = "Number of object detected are:" + objects.length;
-
-            fill(r, g, b);
-            percent = floor(objects[i].confidence * 100);
-            text(objects[i].label + "" + percent + "%", objects[i].x , objects[i].y);
-            noFill();
-            stroke(r, g, b);
-            rect(objects[i].x , objects[i].y , objects[i].width , objects[i].height);
-        }
-
-        
+        objectDetector.detect(video, gotResult);
+        for(i=0; i<object.length; i++);
+        document.getElementById("status").innerHTML = "Status : Object Detector";
+        document.getElementById("noofobj").innerHTML = "Number of Objects Detected are :" + objects.length;
+        fill("#FF0000");
+        percent = floor(objects[i].confidence*100);
+        text(objects[i].label+""+percent+"%"+objects[i].x+15+objects[i].y+15-15);
+        noFill();
+        stroke("#FF0000");
+        rect(objects[i].x, objects[i].y, objects[i].width, objects[i].length);
     }
 
-   
+}
+
+function start()
+{
+    objectDetector = ml5.objectDetector('cocossd', modelLoaded);
+    document.getElementById(id="status").innerHTML = "Status : Detecting Object";
 }
 
 function modelLoaded()
 {
     console.log("Model Loaded!");
-
     status = true;
-    objectDetector.detect(video, gotResult);
+    video.loop();
+    video.speak();
+    video.volume(0);
 }
 
-function gotResult(error , results)
+function gotResult(error, results)
 {
+
     if(error)
     {
-    console.log(error);
+        console.error(error);
+    } else {
+
+        console.log(results);
+        objects = results;
     }
-    console.log(results);
-    objects = results ;
     
 }
-  
-
